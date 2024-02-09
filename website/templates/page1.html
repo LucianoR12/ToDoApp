@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div>
+
+        <h1>To Do List</h1>
+        {% if message %}
+            {% if message_type == 'error' %}
+                <div class="error-message">{{ message }}</div>
+            {% elif message_type == 'success' %}
+                <div class="success-message">{{ message }}</div>
+            {% endif %}
+        {% endif %}
+
+<hr>
+
+        <form action="/add" method="post">
+            <div>
+                <label>Add Task:</label>
+                <input type="text" name="task" placeholder="Enter a Task">
+                <button type="submit">Add</button>
+            </div>
+        </form>
+
+<hr>
+
+        <div>
+        {% for todo in todo_list %}
+            <p class="{% if todo.complete %}completed-task{% else %}incomplete-task{% endif %}">
+                {{ todo.id }}. {{ todo.task }}
+
+<hr>
+
+                <form action="/toggle/{{ todo.id }}" method="post">
+                    <button type="submit">
+                        {% if todo.complete %}
+                            To Do
+                        {% else %}
+                            Done
+                        {% endif %}
+                    </button>
+                </form>
+
+                <form action="/edit/{{ todo.id }}" method="post">
+                    <label>Edit Task:</label>
+                    <input type="text" name="edit_task" required>
+                    <button type="submit">Edit</button>
+                </form>
+
+                <form action="/delete/{{ todo.id }}" method="post" onsubmit="return confirm('Are you sure you want to delete this task?');">
+                    <button type="submit" class="delete-button">Delete Task</button>
+                </form>
+
+<hr>
+
+                <br> Created on: {{ todo.date_created.strftime('%Y/%m/%d %H:%M:%S') }}
+                {% if todo.date_completed %}
+                    <br> Completed on: {{ todo.date_completed.strftime('%Y/%m/%d %H:%M:%S') }}
+                {% elif todo.date_edited %}
+                    <br> Edited on: {{ todo.date_edited.strftime('%Y/%m/%d %H:%M:%S') }}
+                {% endif %}
+
+<hr>
+
+            </p>
+        {% endfor %}
+
+
+
+        </div>
+    </div>
+</body>
+</html>

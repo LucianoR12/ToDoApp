@@ -1,0 +1,23 @@
+.completed-task {
+    text-decoration: line-through;
+    font-style: italic;
+}
+
+.incomplete-task {
+    font-weight: bold;
+}
+
+.error-message {
+    color: red;
+    background: pink;
+}
+
+.success-message {
+    color: green;
+    background: lightgreen;
+}
+
+.delete-button:hover {
+    background-color: red;
+    color: white;
+}
