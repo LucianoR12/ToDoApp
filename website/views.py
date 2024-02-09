@@ -82,6 +82,8 @@ def edit(todo_id):
 def delete(todo_id):
     try:
         todo = Todo.query.filter_by(id=todo_id).first()
+        # deleted_task = Todo(task=todo.task)
+        # db.session.add(deleted_task)
         db.session.delete(todo)
         db.session.commit()
         message_type = "success"
@@ -91,3 +93,15 @@ def delete(todo_id):
         message_type = "error"
         message = "An error occurred while deleting a task."
         return redirect(url_for("my_view.home", message=message, message_type=message_type))
+
+# @my_view.route("/report_deleted_tasks")
+# def report_deleted_tasks():
+#     try:
+#         deleted_tasks = Todo.query.all()
+#         message_type = "success"
+#         message = "Task deleted retrieved successfully."
+#         return redirect(url_for("my_view.home", deleted_tasks=deleted_tasks, message=message, message_type=message_type))
+#     except:
+#         message_type = "error"
+#         message = "An error occurred while retrieving deleted tasks."
+#         return redirect(url_for("my_view.home", message=message, message_type=message_type))

@@ -9,23 +9,20 @@
 
     <script>
         function showPopupNote() {
-        alert("Features:\n" +
-            "- Task Addedd Successfully = Green;\n" +
-            "- An Error Occurred = Red;\n" +
-            "- Add Task Button = Green;\n" +
-            "- Task Done Button = Green;\n" +
-            "- To Do Task Button = Red;\n" +
-            "- Edit Task Button = Blue;\n" +
-            "- Delete Task Button = Red;");
-    }
+            alert(
+                "- You can add a task;\n" +
+                "- You can mark a task as completed;\n" +
+                "- You can revert a task to not complete;\n" +
+                "- You can edit a task;\n" +
+                "- You can delete a task;\n" +
+                "- To delete a task you need to confirm that;\n" +
+                "- You can see the date a task have been created;\n" +
+                "- You can see the date a task have been edited;\n" +
+                "- You can see the date a task have been completed;");
+        }
+    </script>
 
-    if (!localStorage.getItem('popupNoteShown')) {
-        window.onload = function () {
-            showPopupNote();
-            localStorage.setItem('popupNoteShown', true);
-        };
-    }
-        </script>
+    <button class="features-button" onclick="showPopupNote()">Features</button>
 
 </head>
 
@@ -51,9 +48,9 @@
 
 <hr>
 
-        <div>
+        <div >
         {% for todo in todo_list %}
-            <p class="{% if todo.complete %}completed-task{% else %}incomplete-task{% endif %}">
+            <p class="task-box {% if todo.complete %}completed-task{% else %}incomplete-task{% endif %}">
                 {{ todo.id }}. {{ todo.task }}
 
 <hr class="section-divider">
@@ -75,7 +72,7 @@
                     <button type="submit" class="edit-button">Edit</button>
                 </form>
 
-                <form action="/delete/{{ todo.id }}" method="post" onsubmit="return confirm('Are you sure you want to delete this task?');">
+                <form action="/delete/{{ todo.id }}" method="post" onsubmit="return confirm('Are you sure you want to delete {{ todo.id }}. {{ todo.task }}?');">
                     <label>Delete Task:</label>
                     <button type="submit" class="delete-button">Delete</button>
                 </form>
@@ -95,11 +92,17 @@
 <hr>
 
             </p>
+        </div>
+
         {% endfor %}
 
+        <!-- <h3>Deleted Tasks Report</h3>
+        <ul>
+            {% for deleted_task in deleted_tasks %}
+                <li>{{ deleted_task.id }}. {{ deleted_task.task }}</li>
+            {% endfor %}
+        </ul> -->
 
-
-        </div>
     </div>
 </body>
 </html>

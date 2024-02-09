@@ -8,3 +8,4 @@ class Todo(db.Model):
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     date_edited = db.Column(db.DateTime, onupdate=datetime.utcnow)
     date_completed = db.Column(db.DateTime, default=None)
+    # date_deleted = db.Column(db.DateTime, default=datetime.utcnow)

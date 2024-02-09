@@ -17,7 +17,7 @@
     background: lightgreen;
 }
 
-.add-button, .complete-button, .incomplete-button, .edit-button, .delete-button {
+.add-button, .complete-button, .incomplete-button, .edit-button, .delete-button, .features-button {
     background-color: lightgray;
     color: black;
     width: 80px;
@@ -48,6 +48,17 @@
 .delete-button:hover {
     background-color: darkred;
     color: white;
+}
+
+.features-button:hover {
+    background-color: darkblue;
+    color: white;
+}
+
+.task-box {
+    border: 1px;
+    padding: 4px;
+    margin-bottom: 4px;
 }
 
 .section-divider {
