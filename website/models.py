@@ -7,4 +7,4 @@ class Todo(db.Model):
     complete = db.Column(db.Boolean, default = False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     date_edited = db.Column(db.DateTime, onupdate=datetime.utcnow)
-    date_completed = db.Column(db.DateTime, onupdate=datetime.utcnow)
+    date_completed = db.Column(db.DateTime, default=None)

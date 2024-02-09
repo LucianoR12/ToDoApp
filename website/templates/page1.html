@@ -59,6 +59,7 @@
 <hr class="section-divider">
 
                 <form action="/toggle/{{ todo.id }}" method="post">
+                    <label>Mark Task As:</label>
                     <button type="submit" class="{% if todo.complete %}incomplete-button{% else %}complete-button{% endif %}">
                         {% if todo.complete %}
                             To Do
@@ -75,7 +76,8 @@
                 </form>
 
                 <form action="/delete/{{ todo.id }}" method="post" onsubmit="return confirm('Are you sure you want to delete this task?');">
-                    <button type="submit" class="delete-button">Delete Task</button>
+                    <label>Delete Task:</label>
+                    <button type="submit" class="delete-button">Delete</button>
                 </form>
 
 <hr class="section-divider">

@@ -40,29 +40,19 @@ def add():
 #     todo.complete = not todo.complete
 #     db.session.commit()
 #     return redirect(url_for("my_view.home"))
-
-@my_view.route("/edit/<todo_id>", methods=["POST"])
-def edit(todo_id):
-    try:
-        todo = Todo.query.filter_by(id=todo_id).first()
-        edited_task = request.form.get("edit_task")
-        todo.task = edited_task
-        db.session.commit()
-        message_type = "success"
-        message = "Task edited successfully."
-        return redirect(url_for("my_view.home", message=message, message_type=message_type))
-    except:
-        message_type = "error"
-        message = "An error occurred while editing a task."
-        return redirect(url_for("my_view.home", message=message, message_type=message_type))
-
+    
 @my_view.route("/toggle/<todo_id>", methods=["POST"])
 def toggle(todo_id):
     try:
         todo = Todo.query.get(todo_id)
         todo.complete = not todo.complete
+        original_date_edited = todo.date_edited
         if todo.complete:
             todo.date_completed = datetime.utcnow()
+            todo.date_edited = None
+        else:
+            todo.date_completed = None
+            todo.date_edited = original_date_edited
         db.session.commit()
         message_type = "success"
         message = "Task toggled successfully."
@@ -70,6 +60,22 @@ def toggle(todo_id):
     except:
         message_type = "error"
         message = "An error occurred while toggling a task."
+        return redirect(url_for("my_view.home", message=message, message_type=message_type))
+    
+@my_view.route("/edit/<todo_id>", methods=["POST"])
+def edit(todo_id):
+    try:
+        todo = Todo.query.filter_by(id=todo_id).first()
+        edited_task = request.form.get("edit_task")
+        todo.task = edited_task
+        todo.date_edited = datetime.utcnow()
+        db.session.commit()
+        message_type = "success"
+        message = "Task edited successfully."
+        return redirect(url_for("my_view.home", message=message, message_type=message_type))
+    except:
+        message_type = "error"
+        message = "An error occurred while editing a task."
         return redirect(url_for("my_view.home", message=message, message_type=message_type))
 
 @my_view.route("/delete/<todo_id>", methods=["POST"])

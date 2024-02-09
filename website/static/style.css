@@ -20,7 +20,7 @@
 .add-button, .complete-button, .incomplete-button, .edit-button, .delete-button {
     background-color: lightgray;
     color: black;
-    width: 100px;
+    width: 80px;
     padding: 4px;
     margin: 4px;
 }
