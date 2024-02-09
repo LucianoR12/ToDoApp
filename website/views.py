@@ -61,6 +61,8 @@ def toggle(todo_id):
     try:
         todo = Todo.query.get(todo_id)
         todo.complete = not todo.complete
+        if todo.complete:
+            todo.date_completed = datetime.utcnow()
         db.session.commit()
         message_type = "success"
         message = "Task toggled successfully."
@@ -70,7 +72,7 @@ def toggle(todo_id):
         message = "An error occurred while toggling a task."
         return redirect(url_for("my_view.home", message=message, message_type=message_type))
 
-@my_view.route("/delete/<todo_id>")
+@my_view.route("/delete/<todo_id>", methods=["POST"])
 def delete(todo_id):
     try:
         todo = Todo.query.filter_by(id=todo_id).first()

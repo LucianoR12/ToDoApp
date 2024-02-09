@@ -8,16 +8,48 @@
 }
 
 .error-message {
-    color: red;
+    color: darkred;
     background: pink;
 }
 
 .success-message {
-    color: green;
+    color: darkgreen;
     background: lightgreen;
 }
 
-.delete-button:hover {
-    background-color: red;
+.add-button, .complete-button, .incomplete-button, .edit-button, .delete-button {
+    background-color: lightgray;
+    color: black;
+    width: 100px;
+    padding: 4px;
+    margin: 4px;
+}
+
+.add-button:hover {
+    background-color: darkgreen;
     color: white;
+}
+
+.complete-button:hover {
+    background-color: darkgreen;
+    color: white;
+}
+
+.incomplete-button:hover {
+    background-color: darkred;
+    color: white;
+}
+
+.edit-button:hover {
+    background-color: darkblue;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: darkred;
+    color: white;
+}
+
+.section-divider {
+    border-style: dotted;
 }

@@ -6,6 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo App</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <script>
+        function showPopupNote() {
+        alert("Features:\n" +
+            "- Task Addedd Successfully = Green;\n" +
+            "- An Error Occurred = Red;\n" +
+            "- Add Task Button = Green;\n" +
+            "- Task Done Button = Green;\n" +
+            "- To Do Task Button = Red;\n" +
+            "- Edit Task Button = Blue;\n" +
+            "- Delete Task Button = Red;");
+    }
+
+    if (!localStorage.getItem('popupNoteShown')) {
+        window.onload = function () {
+            showPopupNote();
+            localStorage.setItem('popupNoteShown', true);
+        };
+    }
+        </script>
+
 </head>
 
 <body>
@@ -20,13 +41,11 @@
             {% endif %}
         {% endif %}
 
-<hr>
-
         <form action="/add" method="post">
             <div>
                 <label>Add Task:</label>
                 <input type="text" name="task" placeholder="Enter a Task">
-                <button type="submit">Add</button>
+                <button type="submit" class="add-button">Add</button>
             </div>
         </form>
 
@@ -37,10 +56,10 @@
             <p class="{% if todo.complete %}completed-task{% else %}incomplete-task{% endif %}">
                 {{ todo.id }}. {{ todo.task }}
 
-<hr>
+<hr class="section-divider">
 
                 <form action="/toggle/{{ todo.id }}" method="post">
-                    <button type="submit">
+                    <button type="submit" class="{% if todo.complete %}incomplete-button{% else %}complete-button{% endif %}">
                         {% if todo.complete %}
                             To Do
                         {% else %}
@@ -52,19 +71,22 @@
                 <form action="/edit/{{ todo.id }}" method="post">
                     <label>Edit Task:</label>
                     <input type="text" name="edit_task" required>
-                    <button type="submit">Edit</button>
+                    <button type="submit" class="edit-button">Edit</button>
                 </form>
 
                 <form action="/delete/{{ todo.id }}" method="post" onsubmit="return confirm('Are you sure you want to delete this task?');">
                     <button type="submit" class="delete-button">Delete Task</button>
                 </form>
 
-<hr>
+<hr class="section-divider">
 
                 <br> Created on: {{ todo.date_created.strftime('%Y/%m/%d %H:%M:%S') }}
+
                 {% if todo.date_completed %}
                     <br> Completed on: {{ todo.date_completed.strftime('%Y/%m/%d %H:%M:%S') }}
-                {% elif todo.date_edited %}
+                {% endif %}
+
+                {% if todo.date_edited %}
                     <br> Edited on: {{ todo.date_edited.strftime('%Y/%m/%d %H:%M:%S') }}
                 {% endif %}
 
